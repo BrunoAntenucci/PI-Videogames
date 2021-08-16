@@ -4,13 +4,14 @@ const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const axios = require('axios');
-const {Videogame, Genero} = require('../db.js')
+const {Videogame, Genre} = require('../db.js')
 
 
 const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
+
 
 const getApiInfo = async () => {
     const apiUrl = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
@@ -21,17 +22,17 @@ const getApiInfo = async () => {
             img: e.background_image,
             released: e.released,
             rating: e.rating,
-            plataform: e.platforms.map(e => e.platform.name)
+            plataform: e.platforms.map(e => e.platform.name),
         }        
     })
     return apiData;
-} 
+}
 
 
 const getDbInfo = async() => {
     const dbData = await Videogame.findAll({
         include:{
-            model: Genero,
+            model: Genre,
             attributes: ['name'],
             through: {
                 attributes: []
@@ -41,14 +42,12 @@ const getDbInfo = async() => {
     return dbData;
 }
 
-
 const getAllGames = async() => {
     const apiInfo = await getApiInfo();
     const dbInfo = await getDbInfo();
     const allInfo = apiInfo.concat(dbInfo);
     return allInfo;
 }
-
 
 router.get('/videogames', async(req, res) => {
     const name = req.query.name;
@@ -64,26 +63,21 @@ router.get('/videogames', async(req, res) => {
 
 })
 
-
-
 router.get('/genres', async(req, res) => {
-    const total = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`)
-    const genresArrays = total.data.results.map(e => e.genres)
-    const genresAsStrings = genresArrays.map(e => {
-        for(i = 0; i < e.length; i++) {
-            return e[i];
-        }
-    })
-    genresAsStrings.forEach(e => {
-        Genero.findOrCreate({
+    const total = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)
+    const genresArrays = total.data.results.map(e => e.name)
+    //const genresAsObjects = genresArrays.flat(5)
+    
+    genresArrays.forEach(e => {
+        Genre.findOrCreate({
             where: {
-                id: e.id,
-                name: e.name,
+                name: e,
                 createdInDb: false
             }
         })
     })
-    const allGenres = await Genero.findAll();
+
+    const allGenres = await Genre.findAll();
     res.send(allGenres);
 })
 
@@ -105,11 +99,34 @@ router.post('/videogames', async(req, res) => {
         img, 
         plataform
     })
-    let genresDb = await Genero.findAll({
-        where: {name: genres}
+
+    genres.forEach(e => {
+        Genre.findOrCreate({
+            where: {
+                name: e,
+            }
+        })
     })
-    videogameCreated.addGenero(genresDb)
-    res.status(200).send('Videogame creado correctamente')
+
+    let genresDb = await Genre.findAll({
+        where: {
+            name: genres.map(e => e)
+        }
+    })
+
+    videogameCreated.addGenre(genresDb)
+    res.send('Videogame creado correctamente')
+})
+
+router.get('/videogames/:id', async (req, res) => {
+    const id = req.params.id;
+    const totalGames = await getAllGames();
+    if(id){
+        let gameId = await totalGames.filter(e => e.id == id)
+        gameId.length ?
+        res.status(200).json(gameId):
+        res.status(404).send('Videogame no encontrado');      
+    }
 })
 
 module.exports = router;
