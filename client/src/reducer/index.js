@@ -1,9 +1,8 @@
-
 const initialState = {
     videogames : [],
     allVideogames: [],
     genres: [],
-    detail: []
+    detail: [],
 }
 
 function rootReducer(state = initialState, action){
@@ -22,6 +21,13 @@ function rootReducer(state = initialState, action){
                 ...state,
                 videogames: action.payload === 'all' ? allGames : filtered
             }
+        case 'FILTER_BY_GENRE':
+            const allVideogames = state.videogames;
+            const filteredGen = allVideogames.filter(e => e.genres.includes(action.payload))
+            return {
+                ...state,
+                videogames: filteredGen
+            }   
         case 'ORDER_BY_NAME':
             let sortedAlpha = action.payload === 'asc' ?
             state.videogames.sort(function(a, b){
@@ -79,7 +85,7 @@ function rootReducer(state = initialState, action){
             return{
                 ...state,
                 genres: action.payload
-            }
+            }        
         case 'POST_VIDEOGAME':
             return{
                 ...state

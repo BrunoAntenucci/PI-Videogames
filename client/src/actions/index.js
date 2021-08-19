@@ -17,6 +17,13 @@ export function filterByOrigin(payload){
     }
 }
 
+export function filterByGenre(payload){
+    return{
+        type: 'FILTER_BY_GENRE',
+        payload
+    }
+}
+
 export function orderByName(payload){
     return{
         type: 'ORDER_BY_NAME',

@@ -4,6 +4,7 @@ const { Router } = require('express');
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const axios = require('axios');
+const getAllGames = require('../controllers/index')
 const {Videogame, Genre} = require('../db.js')
 
 
@@ -11,43 +12,6 @@ const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-
-
-const getApiInfo = async () => {
-    const apiUrl = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
-    const apiData = await apiUrl.data.results.map(e => {      
-        return {
-            id: e.id,
-            name: e.name,
-            img: e.background_image,
-            released: e.released,
-            rating: e.rating,
-            plataform: e.platforms.map(e => e.platform.name),
-        }        
-    })
-    return apiData;
-}
-
-
-const getDbInfo = async() => {
-    const dbData = await Videogame.findAll({
-        include:{
-            model: Genre,
-            attributes: ['name'],
-            through: {
-                attributes: []
-            }
-        }
-    })
-    return dbData;
-}
-
-const getAllGames = async() => {
-    const apiInfo = await getApiInfo();
-    const dbInfo = await getDbInfo();
-    const allInfo = apiInfo.concat(dbInfo);
-    return allInfo;
-}
 
 router.get('/videogames', async(req, res) => {
     const name = req.query.name;
@@ -85,18 +49,27 @@ router.post('/videogames', async(req, res) => {
     let { name, 
         description, 
         released, 
-        rating, 
-        img, 
+        rating,
         genres, 
+        img, 
         plataform 
     } = req.body;
+
+    genres.forEach(e => {
+        Genre.findOrCreate({
+            where: {
+                name: e,
+            }
+        })
+    })
 
     let videogameCreated = await Videogame.create({
         name, 
         description, 
         released, 
         rating, 
-        img, 
+        img,
+        genres, 
         plataform
     })
 

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { postVideogame, getGenres } from '../actions';
+import { postVideogame, getGenres } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 function validate(input){
@@ -30,7 +30,9 @@ export default function VideogameCreation(){
     const dispatch = useDispatch();
     const history = useHistory();
     const genres = useSelector((state) => state.genres)
+    const videogames = useSelector((state) => state.videogames);
     const [ errors, setErrors ] = useState({});
+    console.log(videogames)
 
     const [ input, setInput ] = useState({
         name: '',
@@ -42,22 +44,21 @@ export default function VideogameCreation(){
         genres: []
     });
 
-
-
-
     function handleChange(e){
         setInput({
             ...input,
-            [e.target.name]: e.target.value            
+            [e.target.name]: e.target.value,
+
         })
         setErrors(validate({
             ...input,
-            [e.target.name]: e.target.value  
+            [e.target.name]: e.target.value,
         }))
         console.log(input)
     }
 
     function handleSubmit(e){
+        if(!errors.name) {
         e.preventDefault();
         dispatch(postVideogame(input));
         alert('Videogame created');
@@ -71,16 +72,32 @@ export default function VideogameCreation(){
             genres: []
         })
         history.push('/home')
+        }else{
+        e.preventDefault();
+        alert('Form incomplete');
+        }
     }
 
     useEffect(() => {
         dispatch(getGenres());
-    }, [])
+    }, [dispatch])
+
+
+    const getPlataforms = function ()  {
+        let aux = videogames;
+        let aux2 =  aux.map((e) => e.plataform).flat(5)
+        let aux3 =  new Set(aux2)
+        let plat =  [...aux3]
+        console.log(plat)
+        return plat
+    }
+    const plataforms = getPlataforms()
+    console.log(plataforms)
 
     return(
         <div>
             <Link to='/home'>
-                <button>Volver</button>
+                <button>Back</button>
             </Link>
             <h1>Create Videogame</h1>
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -104,7 +121,7 @@ export default function VideogameCreation(){
                     name='description'
                     onChange={handleChange}
                     />
-                    {errors.name && (
+                    {errors.description && (
                         <p>{errors.description}</p>
                     )}
                 </div>
@@ -116,7 +133,7 @@ export default function VideogameCreation(){
                     name='img'
                     onChange={handleChange}
                     />
-                    {errors.name && (
+                    {errors.img && (
                         <p>{errors.img}</p>
                     )}
                 </div>
@@ -128,7 +145,7 @@ export default function VideogameCreation(){
                     name='release'
                     onChange={handleChange}
                     />
-                    {errors.name && (
+                    {errors.release && (
                         <p>{errors.release}</p>
                     )}
                 </div>
@@ -140,7 +157,7 @@ export default function VideogameCreation(){
                     name='rating'
                     onChange={handleChange}
                     />
-                    {errors.name && (
+                    {errors.rating && (
                         <p>{errors.rating}</p>
                     )}
                 </div>
@@ -148,6 +165,13 @@ export default function VideogameCreation(){
                     {
                         genres.map((e) => 
                         <option value={e.name}>{e.name}</option>
+                        )
+                    }
+                </select>
+                <select>
+                    {
+                        plataforms.map((e) =>
+                            <option value={e}>{e}</option>
                         )
                     }
                 </select>
