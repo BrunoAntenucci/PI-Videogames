@@ -109,7 +109,7 @@ export default function Home(){
                 currentCards?.map(e => {
                     return(
                         <li>
-                                <Card name={e.name} img={e.img} genres={e.genres} id= {e.id} createdInDB={e.createdInDB}/>                            
+                                <Card name={e.name} img={e.img} genres={e.genres} id= {e.id} createdInDb={e.createdInDb}/>                            
                         </li>
                     )
                 })

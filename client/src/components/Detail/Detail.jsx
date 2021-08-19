@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDetail } from '../../actions';
 import { useEffect } from 'react';
@@ -10,7 +10,7 @@ export default function Detail(props){
 
     useEffect(() => {
         dispatch(getDetail(props.match.params.id))
-    }, [dispatch]);
+    }, [dispatch, props.match.params.id]);
 
     const selectedVideogame = useSelector((state) => state.detail)
 
@@ -27,7 +27,7 @@ export default function Detail(props){
                         <h4>Platforms</h4>
                         <ul>{selectedVideogame[0].plataform ? selectedVideogame[0].plataform.map((e) => <li>{e} </li>) : "No data"}</ul>
                         <h4>Genres</h4>
-                        <ul>{!selectedVideogame[0].createdInDb ? selectedVideogame[0].genres.map((e) => <li>{e} </li>): selectedVideogame[0].genres.map((e) => <li>{e => e.name} </li>)}</ul>
+                        <ul>{selectedVideogame[0].createdInDb === true ? selectedVideogame[0].genres.map((e) => <li>{e.name}</li>) : selectedVideogame[0].genres.map((e) => <li>{e}</li>) }</ul>
                     </div>
                 : <h1>Not found</h1>
 

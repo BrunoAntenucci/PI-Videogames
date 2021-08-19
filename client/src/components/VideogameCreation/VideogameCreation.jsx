@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { postVideogame, getGenres } from '../../actions';
@@ -44,6 +43,29 @@ export default function VideogameCreation(){
         genres: []
     });
 
+    const getPlataforms = function ()  {
+        let aux = videogames;
+        let aux2 =  aux.map((e) => e.plataform).flat(5)
+        let aux3 =  new Set(aux2)
+        let plat =  [...aux3]
+        return plat
+    }
+    const plataforms = getPlataforms();
+
+    function handleGenre(e){
+        setInput({
+            ...input,
+            genres: [...input.genres, e.target.value]
+        })
+    } 
+
+    function handlePlataforms(e){
+        setInput({
+            ...input,
+            plataform: [...input.plataform, e.target.value]
+        })
+    } 
+
     function handleChange(e){
         setInput({
             ...input,
@@ -83,16 +105,7 @@ export default function VideogameCreation(){
     }, [dispatch])
 
 
-    const getPlataforms = function ()  {
-        let aux = videogames;
-        let aux2 =  aux.map((e) => e.plataform).flat(5)
-        let aux3 =  new Set(aux2)
-        let plat =  [...aux3]
-        console.log(plat)
-        return plat
-    }
-    const plataforms = getPlataforms()
-    console.log(plataforms)
+
 
     return(
         <div>
@@ -161,20 +174,28 @@ export default function VideogameCreation(){
                         <p>{errors.rating}</p>
                     )}
                 </div>
-                <select>
-                    {
-                        genres.map((e) => 
-                        <option value={e.name}>{e.name}</option>
-                        )
-                    }
-                </select>
-                <select>
-                    {
-                        plataforms.map((e) =>
-                            <option value={e}>{e}</option>
-                        )
-                    }
-                </select>
+                <br/>
+                <div>
+                    <select onChange={handleGenre}>
+                        {
+                            genres.map((e) => 
+                            <option value={e.name}>{e.name}</option>
+                            )
+                        }
+                    </select>
+                    <ul>{input.genres.map(e => <li>{e}</li>)}</ul>
+                    <select onChange={handlePlataforms}>
+                        {
+                            plataforms.map((e) =>
+                                <option value={e}>{e}</option>
+                            )
+                        }
+                    </select>
+                    <ul>{input.plataform.map(e => <li>{e}</li>)}</ul>
+                </div>
+                <br/>
+
+                <br/>
                 <button type='submit'>Create Videogame</button>
             </form>
         </div>

@@ -6,7 +6,7 @@ const {Videogame, Genre} = require('../db.js')
 
 const getApiInfo = async () => {
     const apiUrl = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}`);
-    const apiData = await apiUrl.data.results.map(e => {      
+    let apiData =  apiUrl.data.results.map(e => {      
         return {
             id: e.id,
             name: e.name,
@@ -17,8 +17,9 @@ const getApiInfo = async () => {
             plataform: e.platforms.map(e => e.platform.name)
         }        
     })
-    return apiData;
+        return apiData;
 }
+
 
 
 const getDbInfo = async() => {
