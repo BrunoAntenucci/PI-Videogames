@@ -1,0 +1,25 @@
+.div{
+    background-color:  #766161;
+    position:fixed;
+    width: 100%;
+    z-index: 1;
+}
+
+.ul{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: space-between;
+    
+}
+
+.li{
+    font-family: 'Anton', sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+    color: floralwhite;
+}
+
+#ab{
+    padding-right: 20px;
+}

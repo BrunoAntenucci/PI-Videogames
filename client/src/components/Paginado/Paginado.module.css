@@ -1,0 +1,17 @@
+.ul{
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    margin-left: 2px;
+
+}
+
+.li{
+    border: 2px solid grey;
+    border-radius: 4px;
+    background-color:darkgray;
+    padding: 8px;
+    margin: 2px;
+    font-family: 'Anton', sans-serif;
+
+}

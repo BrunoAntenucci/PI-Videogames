@@ -1,0 +1,69 @@
+.pos{
+    display: flex;
+    flex-direction: row;
+}
+
+.ubi{
+    position: absolute;
+    top: 80px;
+}
+
+.lists{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: -20px
+}
+
+.img{
+    width: 616px;
+    height: 352px;
+    padding: 15px;
+}
+
+.ul{
+    list-style-type: none;
+    list-style-position: inside;
+    position:relative;
+    left: -38px;
+    font-family: 'Antonio', sans-serif;
+
+}
+
+.li{
+    text-align: left;
+}
+
+.text{
+    text-align: left;
+}
+
+.button{
+    position: absolute;
+    top: 500px;
+    padding: 10px;
+}
+
+#plat{
+    list-style-position: inside;
+    width: 250px;
+}
+
+#titles{
+    font-family: 'Anton', sans-serif;
+
+}
+
+#info{
+    font-family: 'Antonio', sans-serif;
+}
+
+.textbox{
+    position: relative;
+    top: -12px
+}
+
+.btntext{
+    font-family: 'Antonio', sans-serif;
+    font-size: 18px;
+}

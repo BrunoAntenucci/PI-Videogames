@@ -1,9 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Card from '../Card/Card'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { getVideogames, getGenres, filterByOrigin, filterByGenre, orderByName, orderByRating } from '../../actions';
+
+import style from '../Home/Home.module.css'
+
+import Card from '../Card/Card'
 import Paginado from '../Paginado/Paginado'
 import SearchBar from '../SearchBar/SearchBar'
 import Nav from '../NavBar/NavBar';
@@ -64,62 +68,79 @@ export default function Home(){
     }
 
     return(
-        <div>
-            <Nav/>
-            <div>
-                <SearchBar />
-                <h4>Ordered by name</h4>
-                <select onChange={e => handleAlphaSort(e)}>
-                    <option value='asc'>Ascendant</option>
-                    <option value='desc'>Descendant</option>
-                </select>
-                <h4>Ordered by rating</h4>
-                <select onChange={e => handleRatingSort(e)}>
-                    <option value='rasc'>Rating Ascendant</option>
-                    <option value='rdesc'>Ratings Descendant</option>
-                </select>
-                <h4>Filter by orgin</h4>
-                <select onChange={e => handleFilterByOrigin(e)}> 
-                    <option value='all'>All</option>
-                    <option value='nat'>Native</option>
-                    <option value='api'>Api</option>
-                </select>
-                <h4>Filter by genre</h4>
-                <select onChange={e => handleFilterByGenre(e)}>
-                    {
-                        genres.map((e) => 
-                        <option value={e.name}>{e.name}</option>
-                        )
-                    }
-                </select>
-
-                <button onClick={e => {handleClick(e)}}>Reload</button>
-                <Link to='/creation'>Create Videogame</Link>
-            </div>
-            <div>
-
-                
+    <div>
+        
+        <Nav/>
+        
+        <div className={style.pos}>
+            <div className={style.display}>            
                 <Paginado
                 cardsPerPage={cardsPerPage}
                 allVideogames={allVideogames.length}
                 paginado={paginado}
                 />
-                <ul>
-                {
-                currentCards?.map(e => {
-                    return(
-                        <li>
-                                <Card name={e.name} img={e.img} genres={e.genres} id= {e.id} createdInDb={e.createdInDb}/>                            
-                        </li>
-                    )
-                })
-                }
-                </ul>
+                    <ul className={style.ul}>
+                        {
+                            currentCards?.map(e => {
+                                return(
+                                    <li className={style.li}>
+                                            <Card name={e.name} img={e.img} genres={e.genres} id= {e.id} createdInDb={e.createdInDb}/>                            
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
+                <Paginado
+                cardsPerPage={cardsPerPage}
+                allVideogames={allVideogames.length}
+                paginado={paginado}
+                />
+                
             </div>
-    
+
+            <div className={style.control}>
+                <SearchBar />
+                <div className={style.row}>
+                    <div className={style.col}>
+                        <h4 className={style.labels} >Name order</h4>
+                        <select className={style.sel} onChange={e => handleAlphaSort(e)}>
+                            <option value='asc'>Ascendant</option>
+                            <option value='desc'>Descendant</option>
+                        </select>
+                    </div>
+                    <div className={style.col}>
+                        <h4 className={style.labels}>Rating order</h4>
+                        <select className={style.sel} onChange={e => handleRatingSort(e)}>
+                            <option value='rasc'>Ascendant</option>
+                            <option value='rdesc'>Descendant</option>
+                        </select>
+                    </div>
+                </div>
+                <div  className={style.row}>
+                    <div className={style.col}>
+                        <h4 className={style.labels}>Filter by genre</h4>
+                        <select className={style.sel} onChange={e => handleFilterByGenre(e)}>
+                            {
+                                genres.map((e) => 
+                                <option value={e.name}>{e.name}</option>
+                                )
+                            }
+                        </select>  
+                    </div>
+                    <div className={style.col}>
+                        <h4 className={style.labels}>Filter by origin</h4>
+                        <select className={style.sel} onChange={e => handleFilterByOrigin(e)}> 
+                            <option value='all'>All</option>
+                            <option value='nat'>Native</option>
+                            <option value='api'>Api</option>
+                        </select>
+                    </div>
+                </div>
+                <div className={style.reload}>
+                    <button className={style.button} onClick={e => {handleClick(e)}}>Reload</button>
+                </div>
+            </div>    
         </div>
-
+    </div>    
     )
-
-
 }

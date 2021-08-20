@@ -1,0 +1,71 @@
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ul{
+    text-align:justify;
+}
+
+.lists{
+    list-style-type: none;
+    font-family: 'Antonio', sans-serif;
+}
+
+.labels{
+    font-family: 'Antonio', sans-serif;
+    font-size: 18px;
+}
+
+.fields{
+    text-align:justify;
+   
+}
+
+.pos{
+    position: relative;
+    top: 35px;
+}
+
+.input{
+    display: inline-table;
+}
+
+.error{
+    font-family: 'Antonio', sans-serif;
+    color: red;
+}
+
+.title{
+    font-family: 'Anton', sans-serif;
+}
+
+#genre{
+    position: relative;
+    right: 180px;
+}
+
+.button{
+    font-family: 'Antonio', sans-serif;
+    font-size: 18px;
+    position: relative;
+    top: 40px;
+}
+
+.sel{
+    font-family: 'Antonio', sans-serif;
+    font-size: 16px;
+}
+
+.rowsel{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

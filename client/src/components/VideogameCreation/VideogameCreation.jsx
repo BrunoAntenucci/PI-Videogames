@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { postVideogame, getGenres } from '../../actions';
 import { useDispatch, useSelector } from 'react-redux';
+import Nav from '../NavBar/NavBar';
+import styles from '../VideogameCreation/VideogameCreation.module.css'
 
 function validate(input){
     let errors = {};
@@ -109,95 +111,104 @@ export default function VideogameCreation(){
 
     return(
         <div>
+            <Nav/>
             <Link to='/home'>
                 <button>Back</button>
             </Link>
-            <h1>Create Videogame</h1>
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <div>
-                    <label>Name</label>
-                    <input
-                    type='text'
-                    value={input.name}
-                    name='name'
-                    onChange={handleChange}
-                    />
-                    {errors.name && (
-                        <p>{errors.name}</p>
-                    )}
-                </div>
-                <div>
-                    <label>Description</label>
-                    <input
-                    type='text'
-                    value={input.description}
-                    name='description'
-                    onChange={handleChange}
-                    />
-                    {errors.description && (
-                        <p>{errors.description}</p>
-                    )}
-                </div>
-                <div>
-                    <label>Image</label>
-                    <input
-                    type='text'
-                    value={input.img}
-                    name='img'
-                    onChange={handleChange}
-                    />
-                    {errors.img && (
-                        <p>{errors.img}</p>
-                    )}
-                </div>
-                <div>
-                    <label>Release Date</label>
-                    <input
-                    type='text'
-                    value={input.release}
-                    name='release'
-                    onChange={handleChange}
-                    />
-                    {errors.release && (
-                        <p>{errors.release}</p>
-                    )}
-                </div>
-                <div>
-                    <label>Rating</label>
-                    <input
-                    type='number'
-                    value={input.rating}
-                    name='rating'
-                    onChange={handleChange}
-                    />
-                    {errors.rating && (
-                        <p>{errors.rating}</p>
-                    )}
-                </div>
-                <br/>
-                <div>
-                    <select onChange={handleGenre}>
-                        {
-                            genres.map((e) => 
-                            <option value={e.name}>{e.name}</option>
-                            )
-                        }
-                    </select>
-                    <ul>{input.genres.map(e => <li>{e}</li>)}</ul>
-                    <select onChange={handlePlataforms}>
-                        {
-                            plataforms.map((e) =>
-                                <option value={e}>{e}</option>
-                            )
-                        }
-                    </select>
-                    <ul>{input.plataform.map(e => <li>{e}</li>)}</ul>
-                </div>
-                <br/>
-
-                <br/>
-                <button type='submit'>Create Videogame</button>
-            </form>
+            <div className={styles.pos}>
+                    <h1 className={styles.title}>Create New Videogame</h1>
+                    <form onSubmit={(e) => handleSubmit(e)}>
+                        <div className={styles.row}>
+                            <div className={styles.fields}>
+                                <div>
+                                    <label className={styles.labels}>Name </label>                                    
+                                    <input
+                                    type='text'
+                                    value={input.name}
+                                    name='name'
+                                    onChange={handleChange}
+                                    />                                                                                
+                                    {errors.name && (
+                                        <p className={styles.error}>{errors.name}</p>
+                                    )} 
+                                </div>
+                                <div>
+                                    <label className={styles.labels}>Description </label>
+                                    <input
+                                    type='text'
+                                    value={input.description}
+                                    name='description'
+                                    onChange={handleChange}
+                                    />                                       
+                                    {errors.description && (
+                                        <p className={styles.error}>{errors.description}</p>
+                                    )}                                                                                                        
+                                </div>
+                                <div>
+                                    <label className={styles.labels}>Image </label>
+                                    <input
+                                    type='text'
+                                    value={input.img}
+                                    name='img'
+                                    onChange={handleChange}
+                                    />                                    
+                                    {errors.img && (
+                                        <p className={styles.error}>{errors.img}</p>
+                                    )}                                                                        
+                                </div>
+                                <div>
+                                    <label className={styles.labels}>Release Date </label>
+                                    <input
+                                    type='text'
+                                    value={input.release}
+                                    name='release'
+                                    onChange={handleChange}
+                                    />
+                                    {errors.release && (
+                                        <p className={styles.error}>{errors.release}</p>
+                                    )}
+                                </div>
+                                <div>
+                                    <label className={styles.labels}>Rating </label>
+                                    <input
+                                    type='number'
+                                    value={input.rating}
+                                    name='rating'
+                                    onChange={handleChange}
+                                    />
+                                    {errors.rating && (
+                                        <p className={styles.error}>{errors.rating}</p>
+                                    )}
+                                </div>
+                            </div>
+                            <div className={styles.rowsel}>
+                                <div id={styles.genre} className={styles.col}>
+   
+                                    <select className={styles.sel} onChange={handleGenre}>
+                                        {
+                                            genres.map((e) => 
+                                            <option value={e.name}>{e.name}</option>
+                                            )
+                                        }
+                                    </select>
+                                    <ul className={styles.ul}>{input.genres.map(e => <li className={styles.lists}>{e}</li>)}</ul>
+                                </div>
+                                <div className={styles.col}>
+                                
+                                    <select className={styles.sel} onChange={handlePlataforms}>
+                                        {
+                                            plataforms.map((e) =>
+                                                <option value={e}>{e}</option>
+                                            )
+                                        }
+                                    </select>
+                                    <ul className={styles.ul}>{input.plataform.map(e => <li className={styles.lists}>{e}</li>)}</ul>
+                                </div>
+                            </div>
+                        </div>
+                        <button className={styles.button} type='submit'>Create Videogame</button>
+                    </form>
+            </div>                        
         </div>
     )
 }

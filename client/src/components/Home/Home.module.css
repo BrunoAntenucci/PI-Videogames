@@ -1,0 +1,64 @@
+.pos{
+    display: flex;
+    flex-direction:row;
+    background-color: cadetblue;
+}
+
+.display{
+    position: relative;
+    top: 60px;
+}
+
+.ul{
+    list-style-type: none
+}
+
+.li{
+    padding: 4px;
+}
+
+.control{
+    position: fixed;
+    right: 200px;
+    top: 145px;
+    background-color:#766161;
+    width: 400px;
+    padding: 15px;
+    border:slategrey solid 2px;
+}
+
+.labels{
+    font-family: 'Anton', sans-serif;
+    font-size: 16px;
+    color:floralwhite;
+    text-align: center;
+}
+
+.reload{
+    position: relative;
+    top: 5px;
+    padding-top: 15px;
+}
+
+.button{
+    font-family: 'Antonio', sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.sel{
+    font-family: 'Antonio', sans-serif;
+    font-size: 14px;
+
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
+}

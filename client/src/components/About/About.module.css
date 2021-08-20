@@ -1,0 +1,21 @@
+.title{
+    font-family: 'Anton', sans-serif;
+
+}
+
+.text{
+    font-family: 'Antonio', sans-serif;
+
+}
+
+.button{
+    font-family: 'Antonio', sans-serif;
+    font-size: 20px;
+    position: relative;
+    top: 200px;
+}
+
+.pos{
+    position: relative;
+    top:50px;
+}
