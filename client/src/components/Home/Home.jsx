@@ -84,7 +84,7 @@ export default function Home(){
                             currentCards?.map(e => {
                                 return(
                                     <li className={style.li}>
-                                            <Card name={e.name} img={e.img} genres={e.genres} id= {e.id} createdInDb={e.createdInDb}/>                            
+                                            <Card name={e.name} img={e.img} genres={e.genres} id= {e.id} createdInDb={e.createdInDb} />                            
                                     </li>
                                 )
                             })
