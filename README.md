@@ -6,4 +6,7 @@
 
 Integrative project made in the context of the Henry Bootcamp using Javascript, Express, Sequelize, React, Redux, HTML and CSS.
 
-It consumes a REST API, but you can add your own entries. Then you can search for a specific videogame, or you can browse the entries sorting by name, rating or genre. You also can filter the DB to differentiate entries from the API from those you've created.
+It consumes a REST API, but you can add your own entries. You can search for a specific videogame, or you can browse the entries sorting by name, rating or genre. You also can filter the DB to differentiate entries from the API from those you've created. You can aldo view each videogame complete details.
+
+It was a really good experience as it was the very first time developing a SPA entirely on my own and the the proof the I could do it from scratch.
+
