@@ -10,3 +10,16 @@ It consumes a REST API, but you can add your own entries. You can search for a s
 
 It was a really good experience as it was the very first time developing a SPA entirely on my own and the the proof the I could do it from scratch.
 
+Here are some pictures:
+
+<p align='center'>
+    <img src='VideogamesHome.png' </img>
+</p>
+<br/>
+<p align='center'>
+    <img src='VideogameDetail.png' </img>
+</p>
+<br/>
+<p align='center'>
+    <img src='VideogameCreationForm.png' </img>
+</p>
